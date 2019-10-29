@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Tasks.Filters;
 using Tasks.Models;
 using Tasks.Services;
 using Tasks.ViewModels;
@@ -42,20 +43,12 @@ namespace Tasks.Controllers
         {
             if (id != null)
             {
-                TaskModel taskModel = null;
-                try
-                {
-                    taskModel = Model.GetTask((int)id);
-                } catch (ArgumentOutOfRangeException e)
-                {
-                    ModelState.AddModelError("", $"The task does not exists");
-                    return View("Error");
-                }
+                TaskModel taskModel = Model.GetTask((int)id);
                 return View(ViewModelFromModel(taskModel));
             }
             else
             {
-                ModelState.AddModelError("", "The Task id not specified");
+                ViewData = new ViewDataDictionary() { { "Message", "The Task id not specified" } };
                 return View("Error");
             }
         }
@@ -80,18 +73,10 @@ namespace Tasks.Controllers
             }
         }
 
+        [ExceptionHandlerFilter]
         public ActionResult Delete(int id)
         {
-            try
-            {
-                Model.DeleteTask(Model.GetTask(id));
-            }
-            catch (ArgumentOutOfRangeException e)
-            {
-                ModelState.AddModelError("", $"The task does not exists");
-                return View("Error");
-            }
-
+            Model.DeleteTask(Model.GetTask(id));
             return RedirectToAction("Index");
         }
 

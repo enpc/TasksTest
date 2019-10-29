@@ -28,7 +28,7 @@ namespace Tasks.Models
             var task = Repository.RetriveTask(id);
             if (task == null)
             {
-                throw new ArgumentOutOfRangeException($"The task with id {id} does not exists");
+                throw new TaskDoesNotExistsExeption($"The task with id {id} does not exists");
             }
             return TaskModelFromTask(task);
         }

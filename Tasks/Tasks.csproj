@@ -134,9 +134,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\TasksController.cs" />
+    <Compile Include="Filters\ExceptionHandlerFilter.cs" />
     <Compile Include="Models\ITasksModel.cs" />
     <Compile Include="Models\ITasksRepository.cs" />
     <Compile Include="Models\Task.cs" />
+    <Compile Include="Models\TaskDoesNotExistsExeption.cs" />
     <Compile Include="Models\TaskModel.cs" />
     <Compile Include="Models\TasksContext.cs" />
     <Compile Include="Global.asax.cs">
