@@ -1,0 +1,43 @@
+﻿@model Tasks.ViewModels.TaskViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+@Html.ValidationSummary(true)
+@using (Html.BeginForm("Edit", "Tasks", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.HiddenFor(m => m.Id)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Name)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description)
+        @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Description)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.State)
+        @Html.EnumDropDownListFor(m => m.State, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.State)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Started)
+        @Html.DisplayFor(m => m.Started)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Ended)
+        @Html.DisplayFor(m => m.Ended)
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Update" class="btn btn-default" />
+    </div>
+
+}

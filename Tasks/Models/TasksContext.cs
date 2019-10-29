@@ -14,5 +14,7 @@ namespace Tasks.Models
         }
 
         public DbSet<Task> Tasks { get; set;}
+
+        public System.Data.Entity.DbSet<Tasks.Models.TaskModel> TaskModels { get; set; }
     }
 }

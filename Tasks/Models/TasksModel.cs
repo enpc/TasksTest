@@ -6,7 +6,7 @@ using Tasks.Services;
 
 namespace Tasks.Models
 {
-    public class TasksModel
+    public class TasksModel : ITasksModel
     {
         private readonly ITasksRepository Repository;
         private readonly ITimeService TimeService;
@@ -26,6 +26,10 @@ namespace Tasks.Models
         public TaskModel GetTask(int id)
         {
             var task = Repository.RetriveTask(id);
+            if (task == null)
+            {
+                throw new ArgumentOutOfRangeException($"The task with id {id} does not exists");
+            }
             return TaskModelFromTask(task);
         }
 
@@ -48,7 +52,11 @@ namespace Tasks.Models
 
         private TaskModel TaskModelFromTask(Task task)
         {
-            return new TaskModel(TimeService, task.Id, task.State, task.Started, task.Ended);
+            return new TaskModel(TimeService, task.Id, task.State, task.Started, task.Ended)
+            {
+                Name = task.Name,
+                Description = task.Description
+            };
         }
 
         private Task TaskFromTaskModel(TaskModel task)
@@ -64,5 +72,9 @@ namespace Tasks.Models
             };
         }
 
+        public static ITasksModel GetInstance()
+        {
+            return new TasksModel(new TasksRepository(), new TimeService());
+        }
     }
 }

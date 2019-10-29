@@ -1,0 +1,41 @@
+﻿@model Tasks.ViewModels.TaskViewModel[]
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Tasks</h2>
+
+@Html.ActionLink("Create", "Create",null, new { @class = "btn btn-default" })
+
+@if (Model.Count() > 0)
+{
+<table class="table">
+    <tr>
+        <th>@Html.LabelFor(m=>m.FirstOrDefault().Name)</th>
+        <th>@Html.LabelFor(m => m.FirstOrDefault().State)</th>
+        <th>@Html.LabelFor(m => m.FirstOrDefault().Started)</th>
+        <th>@Html.LabelFor(m => m.FirstOrDefault().Ended)</th>
+        <th></th>
+        <th></th>
+    </tr>
+    @foreach (var task in Model)
+    {
+    <tr>
+        <td>@Html.DisplayFor(m=> task.Name)</td>
+        <td>@Html.DisplayFor(m => task.State)</td>
+        <td>@Html.DisplayFor(m => task.Started)</td>
+        <td>@Html.DisplayFor(m => task.Ended)</td>
+        <td>@Html.ActionLink("Edit", "Edit", new { Id = task.Id }, new { @class="btn btn-default" })</td>
+        <td>@Html.ActionLink("Delete", "Delete", new { Id = task.Id }, new { @class = "btn btn-default" }) </td>
+    </tr>
+    }
+</table>
+}
+else
+{
+    <div>
+        No tasks yet.
+    </div>
+}
+
